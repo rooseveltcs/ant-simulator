@@ -9,6 +9,7 @@ import java.awt.*;
 /**
  * Created by ros_aljacobson001 on 5/29/2014.
  * Modified by ros_aljacobson001 on 6/11/2014
+ * The worker ant which walks around the map picking up food
  */
 public class Ant extends Actor{
 
@@ -19,6 +20,12 @@ public class Ant extends Actor{
     public QueenAnt queenAnt;
     public Food food;
     public boolean hasFood = false;
+
+    /**
+     * This method determines what the ant will do when act() is called
+     * The ant will do one of the following: pick up food, give food to the queen
+     * eat the food, move towards the queen or move towards the food
+     */
     public void act(){
         food = theWorld.getCloseFood(this);
         queenAnt = theWorld.getCloseQueen(this);
@@ -156,6 +163,11 @@ public class Ant extends Actor{
         }
     }
 
+    /**
+     * This method displays the ant on the screen.
+     * @param g the Graphics which will be used
+     * @param client the Client of this program
+     */
     public void show(Graphics g, Client client){
         if(getDirection() == Location.NORTH){
             IconLoader.getIcon("ant_N.jpg").paintIcon(client,g,500/client.x*this.getLocation().getX(),500/client.y*this.getLocation().getY()+25);
@@ -175,6 +187,11 @@ public class Ant extends Actor{
             IconLoader.getIcon("ant_NE.jpg").paintIcon(client,g,500/client.x*this.getLocation().getX(),500/client.y*this.getLocation().getY()+25);
         }
     }
+
+    /**
+     * Moves the ant to the given tile.
+     * @param moveTo the location to move to
+     */
     public void move(Location moveTo){
         if(canMove(moveTo)){
             removeFromGrid();
@@ -186,6 +203,11 @@ public class Ant extends Actor{
         }
     }
 
+    /**
+     * Checks if the ant can move to the given location.
+     * @param loc the location to check
+     * @return returns true if the ant can move to the given location, false otherwise
+     */
     public boolean canMove(Location loc){
         if(loc.getX() >= theWorld.getX() || loc.getX() < 0){
             System.out.println("cant move1");
@@ -199,6 +221,10 @@ public class Ant extends Actor{
         }
     }
 
+    /**
+     * gives te Queen food
+     * @param theQueen The queen which the food is given to
+     */
     public void giveQueenFood(QueenAnt theQueen){
         hasFood = false;
         theQueen.setHunger(theQueen.getHunger()+50);

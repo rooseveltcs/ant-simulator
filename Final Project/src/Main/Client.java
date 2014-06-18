@@ -22,6 +22,9 @@ public class Client extends JFrame {
     private Image dbImage;
     private Graphics dbg;
 
+    /**
+     * This class will listen to the space bar and once it is pressed the world will act
+     */
     public class AL extends KeyAdapter{
         public void keyPressed(KeyEvent e){
             int keyCode = e.getKeyCode();
@@ -35,6 +38,10 @@ public class Client extends JFrame {
         }
     }
 
+    /**
+     * Creates a new instance of this
+     *
+     */
     public Client(){
         theWorld.add(new Ant(),8,8);
         theWorld.add(new Food(),0,0);
@@ -53,6 +60,10 @@ public class Client extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * displays everything on the screen
+     * @param g the graphics which is used
+     */
     public void paint(Graphics g) {
         dbImage = createImage(getWidth(), getHeight());
         dbg = dbImage.getGraphics();
@@ -60,12 +71,20 @@ public class Client extends JFrame {
         g.drawImage(dbImage,0,0,this);
     }
 
+    /**
+     * paints a specific component on the screen
+     * @param g
+     */
     public void paintComponent(Graphics g) {
         theWorld.show(g,this);
         paintGrid(g);
         repaint();
     }
 
+    /**
+     * paints the grid onto the screen
+     * @param g the graphics to be used
+     */
     public void paintGrid(Graphics g){
         g.setColor(Color.BLACK);
         int tileX = 50;
@@ -77,6 +96,12 @@ public class Client extends JFrame {
             g.drawLine(0,i*tileY+25,500,i*tileY+25);
         }
     }
+
+    /**
+     * the main of the project creates a new instance of this
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         new Client();
     }
